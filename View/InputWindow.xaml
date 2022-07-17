@@ -1,0 +1,15 @@
+﻿<Window x:Class="WpfApp1.View.InputWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:WpfApp1.View"
+        mc:Ignorable="d"
+        Title="InputWindow" Height="200" Width="400">
+    <Grid>
+        <TextBox Margin="143,65,89,92"/>
+        <Button Content="Ok" Margin="227,123,89,33" Command="{Binding Path=okClick}" />
+        <Button  Content="Cancel" Margin="84,123,233,33" Foreground="Red" Command="{Binding Path=cancelClick}"/>
+        <Label Content="Input" Margin="58,65,291,92"/>
+    </Grid>
+</Window>
