@@ -16,10 +16,19 @@
     <Compile Update="View\InputWindow.xaml.cs">
       <SubType>Code</SubType>
     </Compile>
+    <Compile Update="View\LoginWindow.xaml.cs">
+      <SubType>Code</SubType>
+    </Compile>
     <Compile Update="View\MainPage.xaml.cs">
       <SubType>Code</SubType>
     </Compile>
     <Compile Update="View\OrderCreationPage.xaml.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Update="View\OrdersList.xaml.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Update="View\UserCreationPage.xaml.cs">
       <SubType>Code</SubType>
     </Compile>
   </ItemGroup>
@@ -33,6 +42,9 @@
     <Page Update="View\InputWindow.xaml">
       <SubType>Designer</SubType>
     </Page>
+    <Page Update="View\LoginWindow.xaml">
+      <SubType>Designer</SubType>
+    </Page>
     <Page Update="View\MainPage.xaml">
       <SubType>Designer</SubType>
     </Page>
@@ -42,10 +54,16 @@
     <Page Update="View\OrderCreationPage.xaml">
       <SubType>Designer</SubType>
     </Page>
+    <Page Update="View\OrdersList.xaml">
+      <SubType>Designer</SubType>
+    </Page>
     <Page Update="View\PatientCreatePage.xaml">
       <SubType>Designer</SubType>
     </Page>
     <Page Update="View\PatientList.xaml">
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Update="View\UserCreationPage.xaml">
       <SubType>Designer</SubType>
     </Page>
   </ItemGroup>

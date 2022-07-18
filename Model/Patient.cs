@@ -30,9 +30,6 @@ namespace WpfApp1.Model
         public string gender { get; set; }
         public User creator { get; set; }
 
-        [JsonIgnore]
-        public ICollection<Order> createdOrders { get; set; }
-
         public Patient() { }
         public Patient(string name, string surname, string phoneNumber, string email, int age, string gender, User creator)
         {

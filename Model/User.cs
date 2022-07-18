@@ -20,10 +20,13 @@ namespace WpfApp1.Model
 
         public string surname { get; set; }
 
+        public string password { get; set; }
 
         public string email { get; set; }
 
         public string phoneNumber { get; set; }
+
+        public UserRole userRole { get; set; }
 
         [JsonIgnore]
         public ICollection<Patient> patients { get; set; }
@@ -44,6 +47,16 @@ namespace WpfApp1.Model
             this.email = email;
             this.phoneNumber = phoneNumber;
             this.patients = patients;
+        }
+
+        public User(string name, string surname, string email, string phoneNumber, string password, UserRole role)
+        {
+            this.name = name;
+            this.surname = surname;
+            this.email = email;
+            this.phoneNumber = phoneNumber;
+            this.password = password;
+            this.userRole = role;
         }
 
         public User(string name, string surname, string email, string phoneNumber)
@@ -71,4 +84,11 @@ namespace WpfApp1.Model
 
       
     }
+
+    public enum UserRole
+    {
+        USER,
+        ADMIN
+    }
+
 }

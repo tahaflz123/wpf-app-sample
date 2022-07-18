@@ -20,6 +20,13 @@ namespace WpfApp1.Service
             _context = new UserWPFContext();
         }
 
+        public IngredientService(UserWPFContext userWPFContext)
+        {
+            _context = userWPFContext;
+        }
+
+
+
         public List<Ingredient> refreshIngredients()
         {
             return findAll();

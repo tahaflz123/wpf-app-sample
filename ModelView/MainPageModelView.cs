@@ -4,6 +4,9 @@ using System.Text;
 using System.Windows.Input;
 using WpfApp1.View;
 using System.Windows.Controls;
+using PromptDialog;
+using WpfApp1.Model;
+using System.Windows;
 
 namespace WpfApp1.ModelView
 {
@@ -14,7 +17,10 @@ namespace WpfApp1.ModelView
 
         public readonly DelegateCommand _createPatientClick, _patientsListClick, 
                                _createIngredientClick, _ingredientsListClick,
-                               _createOrderClick;
+                               _createOrderClick, _orderListClick,
+                               _createUserClick;
+
+        private UserService userService { get; set; }
 
         public ICommand createPatientClick => _createPatientClick;
         public ICommand patientsListClick => _patientsListClick;
@@ -23,6 +29,9 @@ namespace WpfApp1.ModelView
         public ICommand createIngredientClick => _createIngredientClick;
 
         public ICommand ingredientsListClick => _ingredientsListClick;
+        public ICommand ordersList => _orderListClick;
+
+        public ICommand createUserClick => _createUserClick;
 
         public MainPageModelView(MainPage mainPage)
         {
@@ -32,56 +41,80 @@ namespace WpfApp1.ModelView
             _createPatientClick = new DelegateCommand(createPatient_Click);
             _patientsListClick = new DelegateCommand(patientsList_Click);
             _ingredientsListClick = new DelegateCommand(ingredientsList_Click);
+            _orderListClick = new DelegateCommand(orderList_Click);
+            _createUserClick = new DelegateCommand(createUser_Click);
+            userService = new UserService();
+            authorize();
         }
 
         public void createPatient_Click(object e)
         {
             PatientCreatePage patientCreatePage = new PatientCreatePage();
-            var mainWindow = getMainWindow();
-            setMainWindowDataContextAndContent(mainWindow, patientCreatePage);
-
+            setMainWindowDataContextAndContent(patientCreatePage);
         }
 
         public void patientsList_Click(object e)
         {
             PatientList patientList = new PatientList();
-            var mainWindow = getMainWindow();
-            setMainWindowDataContextAndContent(mainWindow, patientList);
-
-
+            setMainWindowDataContextAndContent(patientList);
         }
 
         public void createOrder_Click(object e)
         {
             OrderCreationPage orderCreationPage = new OrderCreationPage();
-            var mainWindow = getMainWindow();
-            setMainWindowDataContextAndContent(mainWindow, orderCreationPage);
+            setMainWindowDataContextAndContent(orderCreationPage);
+        }
+
+        public void orderList_Click(object e)
+        {
+            OrdersList orderList = new OrdersList();
+            setMainWindowDataContextAndContent(orderList);
         }
 
         public void createIngredient_Click(object e)
         {
             IngredientCreate ingredientCreate = new IngredientCreate();
-            var mainWindow = getMainWindow();
-            setMainWindowDataContextAndContent(mainWindow, ingredientCreate);
-
+            setMainWindowDataContextAndContent(ingredientCreate);
         }
 
         public void ingredientsList_Click(object e)
         {
             IngredientListPage ingredientListPage = new IngredientListPage();
-            var mainWindow = getMainWindow();
-            setMainWindowDataContextAndContent(mainWindow, ingredientListPage);
-
+            setMainWindowDataContextAndContent(ingredientListPage);
         }
 
-        public MainWindow setMainWindowDataContextAndContent(MainWindow mainWindow, Page page)
+        public void createUser_Click(object e)
         {
+            UserCreationPage userCreationPage = new UserCreationPage();
+            setMainWindowDataContextAndContent(userCreationPage);
+        }
+
+        public MainWindow setMainWindowDataContextAndContent(Page page)
+        {
+            var mainWindow = getMainWindow();
             mainWindow.Content = page;
             mainWindow.DataContext = page;
 
             return mainWindow;
         }
 
+
+        public void authorize()
+        {
+            User user = userService.getLoggedInUser();
+            if(user is null)
+            {
+                MessageBox.Show("Authorization problem", "Authorization failed", MessageBoxButton.OK, MessageBoxImage.Error, MessageBoxResult.OK);
+                getMainWindow().Close();
+            }
+
+            if (user.userRole.Equals(UserRole.USER))
+            {
+                mainPage.addIngredientButton.IsEnabled = false;
+                mainPage.createUserButton.Visibility = Visibility.Collapsed;
+            }
+
+        }
 
         public MainWindow getMainWindow()
         {

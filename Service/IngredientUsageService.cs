@@ -19,6 +19,11 @@ namespace WpfApp1.Service
             _context = new UserWPFContext();
         }
 
+        public IngredientUsageService(UserWPFContext userWPFContext)
+        {
+            _context = userWPFContext;
+        }
+
         public List<IngredientUsage> refreshPatients()
         {
             return findAll();
@@ -55,6 +60,12 @@ namespace WpfApp1.Service
 
 
 
+        }
+
+        public void saveIngredientUsageList(List<IngredientUsage> ingredientUsages)
+        {
+            _context.ingredientUsage.AddRange(ingredientUsages);
+            _context.SaveChanges();
         }
     }
 }

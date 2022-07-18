@@ -18,12 +18,17 @@ namespace WpfApp1.Service
             _context = new UserWPFContext();
         }
 
-        public List<Order> refreshPatients()
+        public OrderService(UserWPFContext userWPFContext)
+        {
+            _context = userWPFContext;
+        }
+
+        public List<Order> refreshOrders()
         {
             return findAll();
         }
 
-        public Order savePatient(Order order)
+        public Order saveOrder(Order order)
         {
             if (order is null)
                 return null;
@@ -38,12 +43,11 @@ namespace WpfApp1.Service
         public List<Order> findAll()
         {
             return _context.orders.Select(e => e)
-                                  .Include(e => e.createdFor)
                                   .Include(e => e.creator)
                                   .ToList();
         }
 
-        public void deletePatient(Order order)
+        public void deleteOrder(Order order)
         {
             if (order == null)
             {

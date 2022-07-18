@@ -9,11 +9,13 @@
       Title="MainPage">
 
     <Grid>
-        <Button Content="Create Patient" HorizontalAlignment="Left" Margin="122,238,0,0" VerticalAlignment="Top" Height="120" Width="150" FontSize="19" Command="{Binding Path=createPatientClick}"/>
-        <Button Content="Patients List" HorizontalAlignment="Left" Margin="522,238,0,0" VerticalAlignment="Top" Height="120" Width="150" FontSize="19" Command="{Binding Path=patientsListClick}" />
-        <Button Content="Add Ingredient" HorizontalAlignment="Left" Margin="122,74,0,0" VerticalAlignment="Top" Height="120" Width="150" FontSize="19" Command="{Binding Path=createIngredientClick}" />
-        <Button Content="Ingredients List" HorizontalAlignment="Center" Margin="0,74,0,0" VerticalAlignment="Top" Height="120" Width="150" FontSize="19" Command="{Binding Path=ingredientsListClick}" />
-        <Button Content="Create Order" HorizontalAlignment="Left" Margin="522,74,0,0" VerticalAlignment="Top" Height="120" Width="150" FontSize="19" Command="{Binding Path=createOrderClick}" />
+        <Button Name="createPatientButton" Content="Create Patient" HorizontalAlignment="Left" Margin="122,74,0,0" VerticalAlignment="Top" Height="120" Width="150" FontSize="19" Command="{Binding Path=createPatientClick}"/>
+        <Button Name="patientsListButton" Content="Patients List" HorizontalAlignment="Left" Margin="122,238,0,0" VerticalAlignment="Top" Height="120" Width="150" FontSize="19" Command="{Binding Path=patientsListClick}" />
+        <Button Name="addIngredientButton" Content="Add Ingredient" HorizontalAlignment="Center" Margin="0,74,0,0" VerticalAlignment="Top" Height="120" Width="150" FontSize="19" Command="{Binding Path=createIngredientClick}" />
+        <Button Name="ingredientsListButton" Content="Ingredients List" HorizontalAlignment="Center" Margin="0,238,0,0" VerticalAlignment="Top" Height="120" Width="150" FontSize="19" Command="{Binding Path=ingredientsListClick}" />
+        <Button Name="createOrderButton" Content="Create Order" HorizontalAlignment="Left" Margin="522,74,0,0" VerticalAlignment="Top" Height="120" Width="150" FontSize="19" Command="{Binding Path=createOrderClick}" />
+        <Button Name="ordersListButton" Content="Orders List" HorizontalAlignment="Left" Margin="522,238,0,0" VerticalAlignment="Top" Height="120" Width="150" FontSize="19" Command="{Binding Path=ordersList}" />
+        <Button Name="createUserButton" Content="Create User" HorizontalAlignment="Left" Margin="651,10,0,0" VerticalAlignment="Top" Width="121" FontSize="19" Command="{Binding Path=createUserClick}"/>
 
     </Grid>
 </Page>

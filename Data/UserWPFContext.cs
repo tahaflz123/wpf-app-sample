@@ -26,7 +26,7 @@ public class UserWPFContext : DbContext
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
     {
 
-        optionsBuilder.UseSqlServer("Server=TAHA-COMPUTER\\SQLEXPRESS;Database=patients;Trusted_Connection=true", builder => builder.EnableRetryOnFailure(5, TimeSpan.FromSeconds(5), null));
+        optionsBuilder.UseSqlServer("Server=DESKTOP-6Q7U0RE\\SQLEXPRESS2019;Database=hospital;Trusted_Connection=true", builder => builder.EnableRetryOnFailure(5, TimeSpan.FromSeconds(5), null));
         //optionsBuilder.UseSqlite("Data Source=C:/Users/Taha/source/repos/WpfApp1/patients");
         //optionsBuilder.UseMySql("server=localhost;database=patient;user=root;password=123456", ServerVersion.AutoDetect(new MySqlConnector.MySqlConnection()));
         base.OnConfiguring(optionsBuilder);
@@ -39,8 +39,10 @@ public class UserWPFContext : DbContext
             user.HasKey(e => e.Id);
             user.Property(e => e.name).IsRequired();
             user.Property(e => e.surname).IsRequired();
+            user.Property(e => e.password).IsRequired();
             user.Property(e => e.email).IsRequired();
             user.Property(e => e.phoneNumber).IsRequired();
+            user.Property(e => e.userRole).IsRequired();
             user.ToTable("users");
         });
 
@@ -61,9 +63,7 @@ public class UserWPFContext : DbContext
         {
                 order.HasKey(o => o.Id);
                 order.HasOne(o => o.creator).WithMany(u => u.orders);
-                order.HasOne(o => o.createdFor).WithMany(p => p.createdOrders);
                 order.Property(o => o.createdDate).IsRequired();
-                order.Property(o => o.maxBagSizeWithML).IsRequired();
         });
 
         modelBuilder.Entity<Ingredient>(ingredient =>

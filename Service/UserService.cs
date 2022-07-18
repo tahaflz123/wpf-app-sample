@@ -19,8 +19,19 @@ namespace WpfApp1
             _userContext = new UserWPFContext();
         }
 
+        public UserService(UserWPFContext context)
+        {
+            _userContext = context;
+        }
 
-        
+
+
+
+        public User findUserByName(string name)
+        {
+            return _userContext.users.Where(u => u.name == name).First();
+        }
+
         public User createCustomUser(string name, string surname, string email, string phoneNumber)
         {
             return new User(name, surname, email, phoneNumber);
@@ -60,6 +71,14 @@ namespace WpfApp1
 
         }
 
+        public User getLoggedInUser()
+        {
+            if (loggedInUser is null)
+            {
+                loggedInUser = _userContext.users.Single(u => u.Id == 1);
+            }
+            return loggedInUser;
+        }
         public User getLoggedInUser(UserWPFContext context)
         {
             if (loggedInUser is null)

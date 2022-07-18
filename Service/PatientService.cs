@@ -22,7 +22,13 @@ namespace WpfApp1
             userService = new UserService();
         }
 
-       
+        public PatientService(UserWPFContext userWPFContext)
+        {
+            _userContext = userWPFContext;
+            userService = new UserService();
+        }
+
+
         public List<Patient> refreshPatients()
         {
             return findAll();

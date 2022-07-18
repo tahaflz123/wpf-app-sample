@@ -7,13 +7,18 @@ using WpfApp1.View;
 using System.Windows.Input;
 using System.Windows;
 using PromptDialog;
+using WpfApp1.Data;
+using System.ComponentModel;
 
 namespace WpfApp1.ModelView
 {
-    public class OrderCreationModelView
+    public class OrderCreationModelView : INotifyPropertyChanged
     {
 
+        private long _totalMl { get; set; }
 
+        public long totalML { get => _totalMl; set { _totalMl = value; OnPropertyChange("totalML");} }
+        private UserWPFContext _context { get; set; }
         private OrderCreationPage _orderCreationPage { get; set; }
 
         private OrderService _orderService { get; set; }
@@ -34,20 +39,32 @@ namespace WpfApp1.ModelView
         public ICommand processOrderClick => _processOrderClick;
 
         public ICommand addToOrderClick => _addToOrderClick;
-        
+
+        public event PropertyChangedEventHandler PropertyChanged;
+
+        protected void OnPropertyChange(string propertyName)
+        {
+            if (PropertyChanged != null)
+            {
+                PropertyChanged(this, new PropertyChangedEventArgs(propertyName));
+            }
+        }
+
         public OrderCreationModelView() { }
         public OrderCreationModelView(OrderCreationPage orderCreationPage)
         {
+            _context = new UserWPFContext();
             _orderCreationPage = orderCreationPage;
-            _orderService = new OrderService();
-            _userService = new UserService();
-            _ingredientService = new IngredientService();
-            _ingredientUsageService = new IngredientUsageService();
+            _orderService = new OrderService(_context);
+            _userService = new UserService(_context);
+            _ingredientService = new IngredientService(_context);
+            _ingredientUsageService = new IngredientUsageService(_context);
             _deleteIngredientClick = new DelegateCommand(deleteIngredient_Click);
             _processOrderClick = new DelegateCommand(processOrder_Click);
             _addToOrderClick = new DelegateCommand(addToOrder_Click);
             ingredients = _ingredientService.findAll();
             orderCreationPage.ingredientListView.ItemsSource = ingredients;
+            totalML = 0;
             ingredientUsages = new List<IngredientUsage>();
         }
 
@@ -70,6 +87,7 @@ namespace WpfApp1.ModelView
                 ingredientUsages.Add(ingredientUsage);
                 _orderCreationPage.ingredientUsagesList.ItemsSource = null;
                 _orderCreationPage.ingredientUsagesList.ItemsSource = ingredientUsages;
+                totalML += ingredientUsage.usedMl;
                 dialog.Close();
             }
 
@@ -101,7 +119,22 @@ namespace WpfApp1.ModelView
 
         public void processOrder_Click(object e)
         {
-            
+            User user =_userService.getLoggedInUser(_context);
+
+            Order order = new Order(user, DateTime.Now);
+
+
+            Order saved = _orderService.saveOrder(order);
+
+            foreach(IngredientUsage ingredientUsage in ingredientUsages)
+            {
+                ingredientUsage.order = saved;
+            }
+
+            _ingredientUsageService.saveIngredientUsageList(ingredientUsages);
+
+            MessageBox.Show("Order on process\n" + saved.ToString() + "\n Total mL, " + totalML ,"Order", MessageBoxButton.OK, MessageBoxImage.Information, MessageBoxResult.OK);
+
         }
 
         public Ingredient getSelectedIngredient()

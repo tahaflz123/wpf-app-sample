@@ -34,7 +34,7 @@
 
         <ScrollViewer VerticalScrollBarVisibility="Auto"  VerticalAlignment="Top" HorizontalAlignment="Left" Height="320" Width="250" Margin="0,72,0,0">
 
-            <ListView Margin="0,0,0,0"  x:Name="ingredientUsagesList"  ItemsSource="{Binding Source={StaticResource orderCreationPageModelView}, Mode=TwoWay,Path=ingredientUsages}"  >
+            <ListView Margin="0,0,0,0"  x:Name="ingredientUsagesList"  >
                 <ListView.View>
                     <GridView>
                         <GridViewColumn Header="mL" DisplayMemberBinding="{Binding usedMl}" />
@@ -44,9 +44,11 @@
                 </ListView.View>
             </ListView>
         </ScrollViewer>
+        <Label  VerticalAlignment="Top" HorizontalAlignment="Left" Margin="0,366,0,0"  Content="Total mL" Height="26" Width="62"/>
 
-        <Button Content="Process Order" Margin="10,410,692,10" Command="{Binding Path=processOrderClick}"/>
-        <Button Content="Delete Ingredient" Margin="125,410,577,10" Foreground="Red" Command="{Binding Path=deleteIngredientFromOrderClick}"/>
+        <Button Content="Process Order" VerticalAlignment="Top" HorizontalAlignment="Left" Margin="10,410,0,0" Command="{Binding Path=processOrderClick}" Height="30"/>
+        <Button Content="Delete Ingredient" VerticalAlignment="Top" HorizontalAlignment="Left" Margin="125,410,0,0" Foreground="Red" Command="{Binding Path=deleteIngredientFromOrderClick}" Height="30"/>
+        <Label VerticalAlignment="Top" HorizontalAlignment="Left" Margin="67,366,0,0"  Content="{Binding totalML, UpdateSourceTrigger=PropertyChanged}" Height="26" Width="117"/>
 
 
     </Grid>
