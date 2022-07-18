@@ -115,9 +115,9 @@ namespace WpfApp1.ModelView
 
 
 
-        public readonly DelegateCommand _saveUserCommand, _navigateToUserList, _ageUpCommand, _ageDownCommand, _genderSelectedCommand;
+        public readonly DelegateCommand _savePatientButtonClick, _navigateToUserList, _ageUpCommand, _ageDownCommand, _genderSelectedCommand, _mainPageClick;
 
-        public ICommand saveUserCommand => _saveUserCommand;
+        public ICommand savePatientButtonClick => _savePatientButtonClick;
 
 
         public ICommand navigateToUserList => _navigateToUserList;
@@ -126,6 +126,8 @@ namespace WpfApp1.ModelView
         public ICommand cmdAgeDown => _ageDownCommand;
 
         public ICommand genderSelectedCommand => _genderSelectedCommand;
+
+        public ICommand mainPageClick => _mainPageClick;
 
 
         public event PropertyChangedEventHandler PropertyChanged;
@@ -145,10 +147,11 @@ namespace WpfApp1.ModelView
 
             this.patientCreatePage = patientCreatePage;
             patientService = new PatientService();
-            _saveUserCommand = new DelegateCommand(saveUserButton_Click);
+            _saveUserCommand = new DelegateCommand(savePatientButton_Click);
             _navigateToUserList = new DelegateCommand(navigateToUserList_Click);
             _ageUpCommand = new DelegateCommand(ageUpCommand_Click);
             _ageDownCommand = new DelegateCommand(ageDownCommand_Click);
+            _mainPageClick = new DelegateCommand(mainPage_Click);
             //_genderSelectedCommand = new DelegateCommand(genderSelectedCommand_Selected);
 
         }
@@ -156,13 +159,13 @@ namespace WpfApp1.ModelView
 
 
 
-        private void saveUserButton_Click(object commandParameter)
+        private void savePatientButton_Click(object commandParameter)
         {
             this.patientService.savePatient(new Patient(Name, Surname, Email,Password, Age, Gender, null));
 
             
 
-            MessageBox.Show("User succesfully saved!", "User saved", MessageBoxButton.OK);
+            MessageBox.Show("Patient succesfully saved!", "Patient saved", MessageBoxButton.OK);
 
         }
 
@@ -185,10 +188,12 @@ namespace WpfApp1.ModelView
         }
 
 
-        private void genderSelectedCommand_Selected(object sender, RoutedEventArgs e)
+        private void mainPage_Click(object e)
         {
-
-
+            MainPage mainPage = new MainPage();
+            var mainWindow = this.patientCreatePage.Parent as MainWindow;
+            mainWindow.Content = mainPage;
+            mainWindow.DataContext = mainPage;
         }
 
 

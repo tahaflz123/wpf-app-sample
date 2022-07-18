@@ -32,13 +32,15 @@ namespace WpfApp1.ModelView
 
         public List<IngredientUsage> ingredientUsages { get; set; }
 
-        public readonly DelegateCommand _deleteIngredientClick, _processOrderClick, _addToOrderClick;
+        public readonly DelegateCommand _deleteIngredientClick, _processOrderClick, _addToOrderClick, _mainPageClick;
 
         public ICommand deleteIngredientFromOrderClick => _deleteIngredientClick;
 
         public ICommand processOrderClick => _processOrderClick;
 
         public ICommand addToOrderClick => _addToOrderClick;
+
+        public ICommand mainPageClick => _mainPageClick;
 
         public event PropertyChangedEventHandler PropertyChanged;
 
@@ -62,6 +64,7 @@ namespace WpfApp1.ModelView
             _deleteIngredientClick = new DelegateCommand(deleteIngredient_Click);
             _processOrderClick = new DelegateCommand(processOrder_Click);
             _addToOrderClick = new DelegateCommand(addToOrder_Click);
+            _mainPageClick = new DelegateCommand(mainPage_Click);
             ingredients = _ingredientService.findAll();
             orderCreationPage.ingredientListView.ItemsSource = ingredients;
             totalML = 0;
@@ -135,6 +138,14 @@ namespace WpfApp1.ModelView
 
             MessageBox.Show("Order on process\n" + saved.ToString() + "\n Total mL, " + totalML ,"Order", MessageBoxButton.OK, MessageBoxImage.Information, MessageBoxResult.OK);
 
+        }
+
+        public void mainPage_Click(object e)
+        {
+            MainPage mainPage = new MainPage();
+            var mainWindow = _orderCreationPage.Parent as MainWindow;
+            mainWindow.Content = mainPage;
+            mainWindow.DataContext = mainPage;
         }
 
         public Ingredient getSelectedIngredient()
