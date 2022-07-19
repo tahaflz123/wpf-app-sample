@@ -13,7 +13,9 @@ namespace WpfApp1
     {
 
         private UserWPFContext _userContext;
-        private User loggedInUser { get; set; }
+        //public static User loggedInUser { get; set; }
+
+        //public static string loggedInUserName { get; set; }
         public UserService()
         {
             _userContext = new UserWPFContext();
@@ -29,7 +31,7 @@ namespace WpfApp1
 
         public User findUserByName(string name)
         {
-            return _userContext.users.Where(u => u.name == name).First();
+            return _userContext.users.Where(u => u.name == name).FirstOrDefault();
         }
 
         public User createCustomUser(string name, string surname, string email, string phoneNumber)
@@ -71,22 +73,21 @@ namespace WpfApp1
 
         }
 
-        public User getLoggedInUser()
-        {
-            if (loggedInUser is null)
-            {
-                loggedInUser = _userContext.users.Single(u => u.Id == 1);
-            }
-            return loggedInUser;
-        }
-        public User getLoggedInUser(UserWPFContext context)
-        {
-            if (loggedInUser is null)
-            {
-                loggedInUser = context.users.Single(u => u.Id == 1);
-                context.SaveChanges();
-            }
-            return loggedInUser;
-        }
+        //public User getLoggedInUser()
+        //{
+        //    if (loggedInUser is null)
+        //    {
+        //        loggedInUser = _userContext.users.Single(u => u.name.Equals(loggedInUserName));
+        //    }
+        //    return loggedInUser;
+        //}
+        //public User getLoggedInUser(UserWPFContext context)
+        //{
+        //    if (loggedInUser is null)
+        //    {
+        //        loggedInUser = _userContext.users.Single(u => u.name.Equals(loggedInUserName));
+        //    }
+        //    return loggedInUser;
+        //}
     }
 }

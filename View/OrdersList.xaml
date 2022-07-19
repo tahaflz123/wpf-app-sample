@@ -25,6 +25,9 @@
                         <GridViewColumn Header="Id"  DisplayMemberBinding="{Binding Id}" />
                         <GridViewColumn Header="Creator ID" DisplayMemberBinding="{Binding creator.Id}" />
                         <GridViewColumn Header="Creator Name" DisplayMemberBinding="{Binding creator.name}" />
+                        <GridViewColumn Header="Creator Surname" DisplayMemberBinding="{Binding creator.surname}" />
+                        <GridViewColumn Header="Creator Email" DisplayMemberBinding="{Binding creator.email}" />
+                        <GridViewColumn Header="Creator Phone Number" DisplayMemberBinding="{Binding creator.phoneNumber}" />
                         <GridViewColumn Header="Created Date" DisplayMemberBinding="{Binding createdDate}" />
                     </GridView>
                 </ListView.View>

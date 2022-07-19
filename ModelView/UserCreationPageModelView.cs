@@ -37,9 +37,11 @@ namespace WpfApp1.ModelView
         private string _password { get; set; }
 
 
-        public readonly DelegateCommand _saveClick;
+        public readonly DelegateCommand _saveClick, _mainPageClick;
 
         public ICommand saveClick => _saveClick;
+
+        public ICommand mainPageClick => _mainPageClick;
 
 
         public event PropertyChangedEventHandler PropertyChanged;
@@ -59,6 +61,7 @@ namespace WpfApp1.ModelView
             _userCreationPage = userCreationPage;
             userService = new UserService();
             _saveClick = new DelegateCommand(save_Click);
+            _mainPageClick = new DelegateCommand(mainPage_Click);
         }
 
         public void save_Click(object e)
@@ -89,6 +92,15 @@ namespace WpfApp1.ModelView
 
 
             MessageBox.Show("User Created \n" + userSavedResult(user), "User Created", MessageBoxButton.OK, MessageBoxImage.Information);
+        }
+
+
+        public void mainPage_Click(object e)
+        {
+            var mainPage = new MainPage();
+            var mainWindow = _userCreationPage.Parent as MainWindow;
+            mainWindow.Content = mainPage;
+            mainWindow.DataContext = mainPage;
         }
 
         public string userSavedResult(User user)

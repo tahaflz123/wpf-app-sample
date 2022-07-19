@@ -22,7 +22,6 @@ namespace WpfApp1.ModelView
         private OrderCreationPage _orderCreationPage { get; set; }
 
         private OrderService _orderService { get; set; }
-        private UserService _userService { get; set; }
 
         private IngredientService _ingredientService { get; set; }
 
@@ -58,7 +57,6 @@ namespace WpfApp1.ModelView
             _context = new UserWPFContext();
             _orderCreationPage = orderCreationPage;
             _orderService = new OrderService(_context);
-            _userService = new UserService(_context);
             _ingredientService = new IngredientService(_context);
             _ingredientUsageService = new IngredientUsageService(_context);
             _deleteIngredientClick = new DelegateCommand(deleteIngredient_Click);
@@ -122,7 +120,7 @@ namespace WpfApp1.ModelView
 
         public void processOrder_Click(object e)
         {
-            User user =_userService.getLoggedInUser(_context);
+            User user = AuthService.getLoggedInUser(_context);
 
             Order order = new Order(user, DateTime.Now);
 

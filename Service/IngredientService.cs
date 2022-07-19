@@ -5,6 +5,7 @@ using Microsoft.EntityFrameworkCore;
 using System.Linq;
 using WpfApp1.Data;
 using WpfApp1.Model;
+using System.Windows;
 
 
 namespace WpfApp1.Service
@@ -50,16 +51,22 @@ namespace WpfApp1.Service
                                   .ToList();
         }
 
-        public void deleteIngredient(Ingredient ingredient)
+        public bool deleteIngredient(Ingredient ingredient)
         {
             if (ingredient == null)
             {
-                return;
+                return false;
             }
-            _context.ingredient.Remove(ingredient);
-            _context.SaveChanges();
+            IngredientUsage ingredientUsage = _context.ingredientUsage.Where(e => e.Ingredient.Id == ingredient.Id).FirstOrDefault();
+            if(ingredientUsage == null)
+            {
+                _context.ingredient.Remove(ingredient);
+                _context.SaveChanges();
+                return true;
+            }
 
-
+            MessageBox.Show("You can't delete this ingredient because ingredient is in usage", "Deletion failed", MessageBoxButton.OK, MessageBoxImage.Error, MessageBoxResult.OK);
+            return false;
 
         }
     }

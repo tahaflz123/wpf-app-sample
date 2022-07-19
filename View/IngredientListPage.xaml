@@ -33,8 +33,8 @@
 
         <Button Content="Main Page" Command="{Binding mainPageClick}" Margin="35,26,686,398" Foreground="Red"/>
         <Button Content="Refresh" Command="{Binding refreshIngredients}" Margin="358,382,354,45" Width="70"/>
-        <Button Content="Delete" Command="{Binding deleteIngredient}" Margin="565,382,147,45" Width="70" />
-        <Button Content="Add" Command="{Binding createIngredient}" Margin="161,383,569,47" Width="70" />
+        <Button Content="Delete" Name="deleteIngredientButton" Command="{Binding deleteIngredient}" Margin="565,382,147,45" Width="70" />
+        <Button Content="Add" Name="addIngredientButton" Command="{Binding createIngredient}" Margin="161,383,569,47" Width="70" />
         <Label Content="Search"  Margin="175,27,569,399" Width="56" />
         <TextBox Name="searchBox" Text="{Binding searchText, UpdateSourceTrigger=PropertyChanged}" HorizontalAlignment="Center" Margin="0,28,0,0" TextWrapping="NoWrap" VerticalAlignment="Top" Width="180" />
 

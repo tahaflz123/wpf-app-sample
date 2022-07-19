@@ -63,6 +63,7 @@ namespace WpfApp1.ModelView
             _mainPageClick = new DelegateCommand(mainPage_Click);
             ingredients = _ingredientService.findAll();
             _ingredientListPage.ingredientListView.ItemsSource = ingredients;
+            authorize();
         }
 
         public void createIngredient_Click(object e)
@@ -81,9 +82,13 @@ namespace WpfApp1.ModelView
                 MessageBox.Show("Please select a item");
             }
 
-            _ingredientService.deleteIngredient(selected);
+            bool deleted = _ingredientService.deleteIngredient(selected);
 
-            MessageBox.Show("Ingredient " + selected.ToString() + " deleted", "Ingredient deleted", MessageBoxButton.OK, MessageBoxImage.Information, MessageBoxResult.OK); ;
+            if(deleted == true)
+            {
+                MessageBox.Show("Ingredient " + selected.ToString() + " deleted", "Ingredient deleted", MessageBoxButton.OK, MessageBoxImage.Information, MessageBoxResult.OK); ;
+                return;
+            }
         }
 
         public void refreshIngredients_Click(object e)
@@ -100,6 +105,17 @@ namespace WpfApp1.ModelView
             mainWindow.DataContext = mainPage;
         }
 
+        public void authorize()
+        {
+            User user = AuthService.getLoggedInUser(new Data.UserWPFContext());
+
+            if (user.userRole.Equals(UserRole.USER))
+            {
+                _ingredientListPage.addIngredientButton.IsEnabled = false;
+                _ingredientListPage.deleteIngredientButton.IsEnabled = false;
+            }
+
+        }
 
 
     }

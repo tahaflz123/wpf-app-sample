@@ -6,6 +6,7 @@ using System.Windows.Input;
 using System.Windows.Controls;
 using WpfApp1.View;
 using WpfApp1.Model;
+using System.Windows;
 
 namespace WpfApp1.ModelView
 {
@@ -59,8 +60,9 @@ namespace WpfApp1.ModelView
         {
             User user = userService.findUserByName(name);
 
-            if (!user.name.Equals(name))
+            if (user == null || !user.name.Equals(name))
             {
+                MessageBox.Show("Bad credentials, please try again...", "Bad credentials!", MessageBoxButton.OK, MessageBoxImage.Warning, MessageBoxResult.OK);
                 return;
             }
 
@@ -69,10 +71,10 @@ namespace WpfApp1.ModelView
 
             if (!password.Equals(user.password))
             {
+                MessageBox.Show("Bad credentials, please try again...", "Bad credentials!", MessageBoxButton.OK, MessageBoxImage.Warning, MessageBoxResult.OK);
                 return;
             }
-
-
+            Service.AuthService.loggedInUserName = user.name;
             MainWindow mainWindow = new MainWindow();
 
             loginWindow.Close();

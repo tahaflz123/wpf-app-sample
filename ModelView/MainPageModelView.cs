@@ -15,12 +15,13 @@ namespace WpfApp1.ModelView
 
         public MainPage mainPage { get; set; }
 
+        private UserService _userService { get; set; }
+
         public readonly DelegateCommand _createPatientClick, _patientsListClick, 
                                _createIngredientClick, _ingredientsListClick,
                                _createOrderClick, _orderListClick,
                                _createUserClick;
 
-        private UserService userService { get; set; }
 
         public ICommand createPatientClick => _createPatientClick;
         public ICommand patientsListClick => _patientsListClick;
@@ -43,7 +44,7 @@ namespace WpfApp1.ModelView
             _ingredientsListClick = new DelegateCommand(ingredientsList_Click);
             _orderListClick = new DelegateCommand(orderList_Click);
             _createUserClick = new DelegateCommand(createUser_Click);
-            userService = new UserService();
+            _userService = new UserService();
             authorize();
         }
 
@@ -101,7 +102,7 @@ namespace WpfApp1.ModelView
 
         public void authorize()
         {
-            User user = userService.getLoggedInUser();
+            User user = Service.AuthService.getLoggedInUser(new Data.UserWPFContext());
             if(user is null)
             {
                 MessageBox.Show("Authorization problem", "Authorization failed", MessageBoxButton.OK, MessageBoxImage.Error, MessageBoxResult.OK);

@@ -78,7 +78,7 @@ namespace WpfApp1.ModelView
             }
         }
 
-        private object _genderValue;
+        private object _genderValue { get; set; }
 
         public object GenderValue
         {
@@ -147,7 +147,7 @@ namespace WpfApp1.ModelView
 
             this.patientCreatePage = patientCreatePage;
             patientService = new PatientService();
-            _saveUserCommand = new DelegateCommand(savePatientButton_Click);
+            _savePatientButtonClick = new DelegateCommand(savePatientButton_Click);
             _navigateToUserList = new DelegateCommand(navigateToUserList_Click);
             _ageUpCommand = new DelegateCommand(ageUpCommand_Click);
             _ageDownCommand = new DelegateCommand(ageDownCommand_Click);

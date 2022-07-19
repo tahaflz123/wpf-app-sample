@@ -14,18 +14,15 @@ namespace WpfApp1
     {
 
         private UserWPFContext _userContext;
-        private UserService userService;
 
         public PatientService()
         {
             _userContext = new UserWPFContext();
-            userService = new UserService();
         }
 
         public PatientService(UserWPFContext userWPFContext)
         {
             _userContext = userWPFContext;
-            userService = new UserService();
         }
 
 
@@ -41,7 +38,7 @@ namespace WpfApp1
             
             if(patient.creator == null)
             {
-                var createdBy = userService.getLoggedInUser(_userContext);
+                var createdBy = Service.AuthService.getLoggedInUser(_userContext);
                 patient.creator = createdBy;
             }
           

@@ -24,6 +24,7 @@
         <CheckBox Content="Admin" Name="adminCheck" FontSize="15" Foreground="red" HorizontalAlignment="Left" Margin="577,351,0,0" VerticalAlignment="Top"/>
 
         <Button Content="Save" Command="{Binding saveClick}" CommandParameter="{Binding ElementName=txtPassword}" Margin="448,386,266,34"/>
+        <Button Content="Main Page" Command="{Binding mainPageClick}" Margin="181,0,533,420" Foreground="Red"/>
 
     </Grid>
 </Page>
