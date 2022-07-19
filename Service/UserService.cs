@@ -13,9 +13,7 @@ namespace WpfApp1
     {
 
         private UserWPFContext _userContext;
-        //public static User loggedInUser { get; set; }
-
-        //public static string loggedInUserName { get; set; }
+       
         public UserService()
         {
             _userContext = new UserWPFContext();
@@ -68,26 +66,6 @@ namespace WpfApp1
             }
             _userContext.users.Remove(user);
             _userContext.SaveChanges();
-
-
-
         }
-
-        //public User getLoggedInUser()
-        //{
-        //    if (loggedInUser is null)
-        //    {
-        //        loggedInUser = _userContext.users.Single(u => u.name.Equals(loggedInUserName));
-        //    }
-        //    return loggedInUser;
-        //}
-        //public User getLoggedInUser(UserWPFContext context)
-        //{
-        //    if (loggedInUser is null)
-        //    {
-        //        loggedInUser = _userContext.users.Single(u => u.name.Equals(loggedInUserName));
-        //    }
-        //    return loggedInUser;
-        //}
     }
 }
